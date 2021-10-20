@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Matrix
+public class Matrix: Object
 {
     int a, b, c, d;
     public Matrix(int a, int b, int c, int d)
@@ -22,11 +22,18 @@ public class Matrix
         return result;
     }
 
+    public override string ToString()
+    {
+        return a + " " + b + "\n" + c + " " + d + "\n";
+    }
+
     static void Main(string[] args)
     {
         Matrix m1 = new Matrix(5, 10, 15, 20), m2 = new Matrix(10, 8, 6, 4);
         Matrix m3 = m1 + m2;
 
+        Console.WriteLine(m1);
+        Console.WriteLine(m2);
         Console.WriteLine(m3);
     }
 }

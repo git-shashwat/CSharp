@@ -7,11 +7,12 @@ namespace LearningCSharp
 		static void Main(string[] args)
 		{
 			Class2 c = new Class2();
-			Class1 p = new Class1();
-			p.MethodOne();
-			c.MethodOne();
-			Console.WriteLine(c.ToString());
-			// every class that we define or otherwise has a default parent class as Object class of System namespace
+			c.MethodExtension(69);
+			int t1 = 34;
+			Console.WriteLine(t1.Factorial());
+
+			string s1 = "tOp Of THe MorNinG";
+			Console.WriteLine(s1.ToSentenceCase());
 		}
 	}
 }

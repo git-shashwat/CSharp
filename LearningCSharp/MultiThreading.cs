@@ -3,12 +3,14 @@ using System.Threading;
 
 public class MultiThreading
 {
-	static void Method1(object max)
+    public static long count1, count2;
+	public void Method1()
     {
-        int num = Convert.ToInt32(max);
-        for (int i = 1; i <= num; ++i)
+        lock (this)
         {
-            Console.WriteLine("Method 1: " + i);
+            Console.Write("CSharp is kinda cool");
+            Thread.Sleep(5000);
+            Console.WriteLine(" programming language.");
         }
     }
 
@@ -17,12 +19,6 @@ public class MultiThreading
         for (int i = 1; i <= 100; ++i)
         {
             Console.WriteLine("Method 2: " + i);
-            if (i == 50)
-            {
-                Console.WriteLine("Thread 2 going to sleep");
-                Thread.Sleep(10000);
-                Console.Write("Thread 2 woke up and chose violence");
-            }
         }
     }
 
@@ -34,13 +30,52 @@ public class MultiThreading
         }
     }
 
+    static void Increment1()
+    {
+        while (true)
+            count1++;
+    }
+
+    static void Increment2()
+    {
+        while (true)
+            count2++;
+    }
+
     static void Main()
     {
-        // ThreadStart ts = new ThreadStart(Method1);
-        // ThreadStart ts = () => Method1();
-        ParameterizedThreadStart pts = new ParameterizedThreadStart(Method1);
-        Thread t = new Thread(pts);
+        //MultiThreading obj = new MultiThreading();
+        //Thread t1 = new Thread(obj.Method1);
+        //Thread t2 = new Thread(obj.Method1);
+        //Thread t3 = new Thread(obj.Method1);
 
-        t.Start(75);
+        //t1.Start();
+        //t2.Start();
+        //t3.Start();
+
+        //t1.Join();
+        //t2.Join();
+        //t3.Join();
+
+        Thread t1 = new Thread(Increment1);
+        Thread t2 = new Thread(Increment2);
+
+        t1.Start();
+        t2.Start();
+
+        Console.WriteLine("Main thread going to sleep");
+        Thread.Sleep(5000);
+        Console.WriteLine("Main thread woke up.");
+
+        t1.Abort();
+        t2.Abort();
+
+        t1.Join();
+        t2.Join();
+
+        Console.WriteLine("Count1 = " + count1);
+        Console.WriteLine("Count2 = " + count2);
+
+        Console.WriteLine("Main thread exiting");
     }
 }

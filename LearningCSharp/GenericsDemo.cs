@@ -23,6 +23,11 @@ public class GenericsDemo
                 return -1;
             return 0;
         }
+
+        public static int CompareNames(Student s1, Student s2)
+        {
+            return s1.name.CompareTo(s2.name);
+        }
     }
 
     class CompareByMarks : IComparer<Student>
@@ -43,11 +48,16 @@ public class GenericsDemo
         Student s2 = new Student(102, "Rahul", 565);
         Student s3 = new Student(101, "John", 595);
 
-        List<Student> li = new List<Student>(){ s1, s2, s3};
+        List<Student> li = new List<Student>(){ s1, s2, s3 };
 
-        CompareByMarks cbm = new CompareByMarks();
+        // Comparison<Student> obj = new Comparison<Student>(Student.CompareNames);
 
-        li.Sort(cbm);
+        li.Sort((l1, l2) => l1.name.CompareTo(l2.name));
+
+        // CompareByMarks cbm = new CompareByMarks();
+
+        // li.Sort(cbm);
+        //li.Sort(obj);
         foreach (var item in li)
         {
             Console.WriteLine(item.sId + " " + item.name + " " + item.marks);
